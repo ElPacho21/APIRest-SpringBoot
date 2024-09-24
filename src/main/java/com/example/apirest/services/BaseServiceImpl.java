@@ -1,7 +1,6 @@
 package com.example.apirest.services;
 
 import com.example.apirest.entities.Base;
-import com.example.apirest.entities.Persona;
 import com.example.apirest.repositories.BaseRepository;
 import jakarta.transaction.Transactional;
 
