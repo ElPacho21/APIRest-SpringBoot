@@ -13,7 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @Audited
 public class Libro extends Base{
 
@@ -21,7 +20,7 @@ public class Libro extends Base{
     private String titulo;
 
     @Column (name = "fecha")
-    private String fecha;
+    private int fecha;
 
     @Column (name = "genero")
     private String genero;
@@ -29,14 +28,6 @@ public class Libro extends Base{
     @Column (name = "paginas")
     private int paginas;
 
-    @Column (name = "autor")
-    private String autor;
-
-    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "libro_autor",
-            joinColumns = @JoinColumn (name = "libro_id"),
-            inverseJoinColumns = @JoinColumn (name = "autor_id"))
-    @Builder.Default
+    @ManyToMany (cascade = CascadeType.REFRESH)
     private Set<Autor> autores = new HashSet<>();
 }

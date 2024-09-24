@@ -13,7 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 
 public class Base implements Serializable {
 

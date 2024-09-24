@@ -11,7 +11,6 @@ import org.hibernate.envers.Audited;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @Audited
 public class Localidad extends Base{
 

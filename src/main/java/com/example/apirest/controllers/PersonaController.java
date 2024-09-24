@@ -1,18 +1,32 @@
 package com.example.apirest.controllers;
 
+import com.example.apirest.entities.Persona;
 import com.example.apirest.services.PersonaServiceImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*") //Es una notacion para permitir el acceso a nuestra API desde distintos origenes o clientes
 @RequestMapping(path = "api/v1/personas")
-public class PersonaController {
-    private PersonaServiceImpl personaServiceImpl;
-
-    //Es para realizar la autoinyeccion de dependencias
-    public PersonaController(PersonaServiceImpl personaServiceImpl) {
-        this.personaServiceImpl = personaServiceImpl;
+public class PersonaController extends BaseControllerImpl <Persona, PersonaServiceImpl>{
+    @GetMapping("/search")
+    public ResponseEntity<?> search(@RequestParam String filtro){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro));
+        } catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
     }
-    //ResponseEntity es para que nos brinde los estatus de las respuestas en formato JSON para nuestra aplicacion WEB
+
+    @GetMapping("/searchPaged")
+    public ResponseEntity<?> search(@RequestParam String filtro, Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro, pageable));
+        } catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
+    }
 
 }

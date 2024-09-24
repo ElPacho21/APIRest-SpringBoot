@@ -4,16 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.Audited;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "domicilio")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @Audited
 public class Domicilio extends Base{
 
@@ -23,7 +19,8 @@ public class Domicilio extends Base{
     @Column (name = "numero")
     private int numero;
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private Set<Localidad> localidades = new HashSet<>();
+    //EL atributo optional sirve para indicar que la relacion nunca debe ser nula
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "fk_localidad")
+    private Localidad localidad;
 }
